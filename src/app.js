@@ -7,6 +7,7 @@ App = {
     await App.loadAccount();
     await App.loadContract();
     await App.render();
+    await App.createTask();
   },
 
   // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
@@ -116,6 +117,16 @@ App = {
       // Show the task
       $newTaskTemplate.show();
     }
+  },
+  createTask: async () => {
+    App.setLoading(true);
+    const content = $("#newTask").val();
+    console.log('CONTENT', content);
+    if(content){
+      await App.todoList.createTask(content);
+      window.location.reload();
+    }
+    App.setLoading(false);
   },
 
   setLoading: (boolean) => {
